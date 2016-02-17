@@ -1,0 +1,6 @@
+<h2>New toy</h2>
+
+<%= render "form.html", changeset: @changeset,
+                        action: toy_path(@conn, :create) %>
+
+<%= link "Back", to: toy_path(@conn, :index) %>

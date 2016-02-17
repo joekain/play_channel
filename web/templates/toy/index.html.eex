@@ -1,0 +1,30 @@
+<h2>Listing toys</h2>
+
+<table class="table">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Color</th>
+      <th>Age</th>
+
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+<%= for toy <- @toys do %>
+    <tr>
+      <td><%= toy.name %></td>
+      <td><%= toy.color %></td>
+      <td><%= toy.age %></td>
+
+      <td class="text-right">
+        <%= link "Show", to: toy_path(@conn, :show, toy), class: "btn btn-default btn-xs" %>
+        <%= link "Edit", to: toy_path(@conn, :edit, toy), class: "btn btn-default btn-xs" %>
+        <%= link "Delete", to: toy_path(@conn, :delete, toy), method: :delete, data: [confirm: "Are you sure?"], class: "btn btn-danger btn-xs" %>
+      </td>
+    </tr>
+<% end %>
+  </tbody>
+</table>
+
+<%= link "New toy", to: toy_path(@conn, :new) %>

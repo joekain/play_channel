@@ -1,0 +1,23 @@
+<h2>Show toy</h2>
+
+<ul>
+
+  <li>
+    <strong>Name:</strong>
+    <%= @toy.name %>
+  </li>
+
+  <li>
+    <strong>Color:</strong>
+    <%= @toy.color %>
+  </li>
+
+  <li>
+    <strong>Age:</strong>
+    <%= @toy.age %>
+  </li>
+
+</ul>
+
+<%= link "Edit", to: toy_path(@conn, :edit, @toy) %>
+<%= link "Back", to: toy_path(@conn, :index) %>
