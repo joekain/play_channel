@@ -1,0 +1,6 @@
+{
+  "name": "play_channel",
+  "dependencies": {
+    "jquery": "^2.2.0"
+  }
+}
