@@ -45,6 +45,8 @@ defmodule PlayChannel.ToyController do
 
     case Repo.update(changeset) do
       {:ok, toy} ->
+        PlayChannel.ToyChannel.broadcast_change(toy)
+
         conn
         |> put_flash(:info, "Toy updated successfully.")
         |> redirect(to: toy_path(conn, :show, toy))
