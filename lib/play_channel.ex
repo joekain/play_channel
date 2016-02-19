@@ -13,12 +13,16 @@ defmodule PlayChannel do
       supervisor(PlayChannel.Repo, []),
       # Here you could define other workers and supervisors as children
       # worker(PlayChannel.Worker, [arg1, arg2, arg3]),
+      worker(GenEvent, [[name: :toy_event_manager]])
     ]
 
     # See http://elixir-lang.org/docs/stable/elixir/Supervisor.html
     # for other strategies and supported options
     opts = [strategy: :one_for_one, name: PlayChannel.Supervisor]
-    Supervisor.start_link(children, opts)
+
+    with {:ok, pid} <- Supervisor.start_link(children, opts),
+         :ok <- PlayChannel.Toy.UpdateEventHandler.register_with_manager(:toy_event_manager),
+      do: {:ok, pid}
   end
 
   # Tell Phoenix to update the endpoint configuration

@@ -45,7 +45,7 @@ defmodule PlayChannel.ToyController do
 
     case Repo.update(changeset) do
       {:ok, toy} ->
-        PlayChannel.ToyChannel.broadcast_change(toy)
+        GenEvent.notify(:toy_event_manager, {:update, toy})
 
         conn
         |> put_flash(:info, "Toy updated successfully.")
