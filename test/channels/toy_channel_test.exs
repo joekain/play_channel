@@ -2,23 +2,17 @@ defmodule PlayChannel.ToyChannelTest do
   use PlayChannel.ChannelCase
 
   alias PlayChannel.ToyChannel
+  alias PlayChannel.Toy
 
   setup do
+    toy = Toy.changeset(%Toy{}, %{age: 42, color: "some content", name: "some content"})
+    |> Repo.insert!
+
     {:ok, _, socket} =
       socket("user_id", %{some: :assign})
-      |> subscribe_and_join(ToyChannel, "toys:lobby")
+      |> subscribe_and_join(ToyChannel, "toys:#{toy.id}")
 
     {:ok, socket: socket}
-  end
-
-  test "ping replies with status ok", %{socket: socket} do
-    ref = push socket, "ping", %{"hello" => "there"}
-    assert_reply ref, :ok, %{"hello" => "there"}
-  end
-
-  test "shout broadcasts to toys:lobby", %{socket: socket} do
-    push socket, "shout", %{"hello" => "all"}
-    assert_broadcast "shout", %{"hello" => "all"}
   end
 
   test "broadcasts are pushed to the client", %{socket: socket} do
