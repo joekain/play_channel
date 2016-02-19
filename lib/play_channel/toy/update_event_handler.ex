@@ -6,7 +6,7 @@ defmodule PlayChannel.Toy.UpdateEventHandler do
     {:ok, nil}
   end
 
-  def register_with_manager(pid) do
-    GenEvent.add_handler(pid, __MODULE__, nil)
+  def register_with_manager do
+    PlayChannel.Toy.EventManager.register(__MODULE__, nil)
   end
 end
